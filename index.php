@@ -4,7 +4,7 @@
     </head>
     <body>
           <h1>Start</h1> 
-          <form action="index.php?aktie=toevoegen" method="post">
+          <form action="index.php" method="post">
           <table border="1" width="500px">
         <tr>
             <td>
@@ -67,12 +67,13 @@
                     $naam = $_POST['naam'];
                     $adres = $_POST['adres'];
                     $woonplaats = $_POST['woonplaats'];
+                    $postcode = $_POST['postcode'];
                     $E_mail = $_POST['E_mail'];
                     $telefoon_nummer = $_POST['telefoon_nummer'];
 
                     $sql = "INSERT INTO klanten (naam, adres, woonplaats, postcode, E_mail, telefoon_nummer)
                     VALUES (?, ?, ?, ?, ?, ?);";
-                    $pdo->prepare($sql)->execute([$naam, $adres, $woonplaats, $E_mail, $telefoon_nummer]);
+                    $pdo->prepare($sql)->execute([$naam, $adres, $woonplaats, $postcode, $E_mail, $telefoon_nummer]);
             }
         ?>
     </body>
