@@ -1,7 +1,10 @@
 <html>
-<head>
-</head>
+    <head>
+        <title>fietsverhuur de elstar</title>
+    </head>
     <body>
-          <h1>Start</h1>  
+          <h1>Start</h1> 
+          <?php
+          ?>
     </body>
 </html>
