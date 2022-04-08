@@ -1,9 +1,11 @@
 <html>
     <head>
         <title>fietsverhuur de elstar</title>
+        <link rel="stylesheet" href="index.css">
     </head>
     <body>
-          <h1>Start</h1> 
+<div class="container">
+          <h1 id="homepage_title">fietsverhuur De Elstar</h1> 
           <form action="index.php" method="post">
           <table border="1" width="500px">
         <tr>
@@ -76,5 +78,6 @@
                     $pdo->prepare($sql)->execute([$naam, $adres, $woonplaats, $postcode, $E_mail, $telefoon_nummer]);
             }
         ?>
+</div>
     </body>
 </html>
