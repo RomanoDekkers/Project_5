@@ -7,6 +7,7 @@
 <div class="container">
           <h1 id="homepage_title">fietsverhuur De Elstar</h1> 
           <form action="index.php" method="post">
+        <div class="table_div">
           <table border="1" width="500px">
         <tr>
             <td>
@@ -60,6 +61,7 @@
             <td colspan="2" align="right"><input type="submit" value="toevoegen" name="toevoegen"></td>
         </tr>
     </table>
+        </div>
 </form>
           <?php
           include("connect.php");
