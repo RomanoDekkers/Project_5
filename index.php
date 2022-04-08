@@ -10,7 +10,7 @@
           <table border="1" width="500px">
         <tr>
             <td>
-                 naam:
+                 Naam:
             </td>
             <td>
                 <input type="text" placeholder="naam" name="naam">
@@ -18,7 +18,7 @@
         </tr>
         <tr>
             <td>
-                 adres:
+                 Adres:
             </td>
             <td>
                 <input type="text" placeholder="adres" name="adres">
@@ -26,7 +26,7 @@
 		</tr>
         <tr>
             <td>
-                 woonplaats:
+                 Woonplaats:
             </td>
             <td>
                 <input type="text" placeholder="woonplaats" name="woonplaats">
@@ -34,7 +34,7 @@
         </tr>
         <tr>
             <td>
-                 postcode:
+                 Postcode:
             </td>
             <td>
                 <input type="text" placeholder="postcode" name="postcode">
@@ -50,7 +50,7 @@
         </tr>
         <tr>
             <td>
-                 telefoon nummer:
+                 Telefoon nummer:
             </td>
             <td>
                 <input type="text" placeholder="telefoon_nummer" name="telefoon_nummer">
