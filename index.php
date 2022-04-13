@@ -4,7 +4,9 @@
         <link rel="stylesheet" href="index.css">
     </head>
     <body>
-        <h1>Start</h1> 
+<div class="Container">
+        <h1 id="homepage_title">fietsverhuur de elstar</h1>
+        <div class="table_div"> 
         <form action="index.php" method="post">
             <table border="1" width="500px">
                 <tr>
@@ -36,6 +38,7 @@
                 </tr>
             </table>
         </form>
+</div>
         <?php
             include("connect.php");
 
