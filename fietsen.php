@@ -10,26 +10,26 @@
           $stmt = $pdo->query("SELECT * FROM fiets_merk");
 
           if(isset($_POST['toevoegen'])){
-              $merk_ID = $_POST['merk_ID'];
+              $IDmerk = $_POST['merk'];
               $heren_dames_uni = $_POST['heren_dames_uni'];
               $maat = $_POST['maat'];
               $prijs = $_POST['prijs'];
               $fiets_serienummer = $_POST['fiets_serienummer'];
-              
-              $sql = "INSERT INTO klanten (merk_ID, heren_dames_uni, maat, prijs, fiets_serienummer)
+              echo $IDmerk;
+              $sql = "INSERT INTO fiets (IDmerk, heren_dames_uni, maat, prijs, fiets_serienummer)
               VALUES (?, ?, ?, ?, ?);";
-              $pdo->prepare($sql)->execute([$merk_ID, $heren_dames_uni, $maat, $prijs, $fiets_serienummer]);
+              $pdo->prepare($sql)->execute([$IDmerk, $heren_dames_uni, $maat, $prijs, $fiets_serienummer]);
           }
           ?>
 
           <div class="Container">
         <h1 id="homepage_title">fietsen toevoegen</h1>
         <div class="table_div"> 
-        <form action="index.php" method="post">
+        <form action="fietsen.php" method="post">
             <table border="1" width="500px">
                 <tr>
-                <td><label>ID_merk:</label></td>
-                    <td><select name="ID_merk" id="ID_merk">
+                <td><label>merk_ID:</label></td>
+                    <td><select name="merk" id="merk">
                         <?php
                             foreach ($stmt as $rij){
                                 echo "<option value=";
