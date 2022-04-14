@@ -5,33 +5,33 @@
     </head>
     <body>
 <div class="Container">
-        <h1 id="homepage_title">fietsverhuur de elstar</h1>
+        <h1 id="homepage_title">inloggen</h1>
         <div class="table_div"> 
         <form action="index.php" method="post">
             <table border="1" width="500px">
                 <tr>
                     <td>naam:</td>
-                    <td><input type="text" placeholder="naam" name="naam"></td>
+                    <td><input type="text" placeholder="naam" name="naam" required></td>
                 </tr>
                 <tr>
                     <td>adres:</td>
-                    <td><input type="text" placeholder="adres" name="adres"></td>
+                    <td><input type="text" placeholder="adres" name="adres" required></td>
 		        </tr>
                 <tr>
                     <td>woonplaats:</td>
-                    <td><input type="text" placeholder="woonplaats" name="woonplaats"></td>
+                    <td><input type="text" placeholder="woonplaats" name="woonplaats" required></td>
                 </tr>
                 <tr>
                     <td>postcode:</td>
-                    <td><input type="text" placeholder="postcode" name="postcode"></td>
+                    <td><input type="text" placeholder="postcode" name="postcode" required></td>
                 </tr>
                 <tr>
                     <td>E-mail:</td>
-                    <td><input type="text" placeholder="E_mail" name="E_mail"></td>
+                    <td><input type="text" placeholder="E_mail" name="E_mail" required></td>
                 </tr>
                 <tr>
                     <td>telefoon nummer:</td>
-                    <td><input type="text" placeholder="telefoon_nummer" name="telefoon_nummer"></td>
+                    <td><input type="number" id="replyNumber" data-bind="value:replyNumber" placeholder="telefoon_nummer" name="telefoon_nummer"></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="right"><input type="submit" value="toevoegen" name="toevoegen"></td>
