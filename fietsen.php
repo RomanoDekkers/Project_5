@@ -66,6 +66,44 @@
                 </tr>
             </table>
         </form>
+        <?php
+        $tabelData = '<table border="1" width="500px"><tr>
+            <td>ID</td>
+            <td>ID Merk</td>
+            <td>heren_dames_uni</td>
+            <td>maat</td>
+            <td>prijs</td>
+            <td>fiets_serienummer</td>
+        </tr>';
+            $stmt = $pdo->query("SELECT * FROM fiets");
+
+            foreach ($stmt as $rij){
+                $tabelData .= '<tr>';
+                    $tabelData .= '<td>';
+                        $tabelData .= $rij['ID'];
+                    $tabelData .= '</td>';
+                    $tabelData .= '<td>';
+                        $tabelData .= $rij['IDmerk'];
+                    $tabelData .= '</td>';
+                    $tabelData .= '<td>';
+                        $tabelData .= $rij['heren_dames_uni'];
+                    $tabelData .= '</td>';
+                    $tabelData .= '<td>';
+                        $tabelData .= $rij['maat'];
+                    $tabelData .= '</td>';
+                    $tabelData .= '<td>';
+                        $tabelData .= $rij['prijs'];
+                    $tabelData .= '</td>';
+                    $tabelData .= '<td>';
+                        $tabelData .= $rij['fiets_serienummer'];
+                    $tabelData .= '</td>';
+                $tabelData .= '</tr>';
+            }
+            $tabelData .= '</table>';
+            echo $tabelData;
+        ?>
+</div>
+</div>
 </div>
     </body>
 </html>
