@@ -15,7 +15,6 @@
               $maat = $_POST['maat'];
               $prijs = $_POST['prijs'];
               $fiets_serienummer = $_POST['fiets_serienummer'];
-              echo $IDmerk;
               $sql = "INSERT INTO fiets (IDmerk, heren_dames_uni, maat, prijs, fiets_serienummer)
               VALUES (?, ?, ?, ?, ?);";
               $pdo->prepare($sql)->execute([$IDmerk, $heren_dames_uni, $maat, $prijs, $fiets_serienummer]);
