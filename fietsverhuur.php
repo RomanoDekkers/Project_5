@@ -5,28 +5,39 @@
     </head>
     <body>
         <h1>Start</h1> 
-        <script>function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}
-
-function filterFunction() {
-  var input, filter, ul, li, a, i;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  div = document.getElementById("myDropdown");
-  a = div.getElementsByTagName("a");
-  for (i = 0; i < a.length; i++) {
-    txtValue = a[i].textContent || a[i].innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      a[i].style.display = "";
-    } else {
-      a[i].style.display = "none";
-    }
-  }
-}
-</script>
         <?php
-        $tabelData = '<table border="1" width="500px"><tr>
+            include("connect.php");
+            $stmt = $pdo->query("SELECT * FROM fiets_merk");
+            echo ' <form action="fietsverhuur.php" method="post">';
+            echo '<td><label>filter merk:</label></td>
+                    <td><select name="merk" id="merk">';
+                            foreach ($stmt as $rij){
+                                echo "<option value=";
+                                echo $rij['ID'];
+                                echo ">";
+                                echo $rij['merk_naam'];
+                                echo "</option>";
+                            }
+                        echo '</select></td>
+                        <br/>';
+                        
+            echo '<td><label>filter soort fiets:</label></td>
+                        <td><select name="soort" id="soort">';
+                        echo '<option value="1">heren</option>';
+                        echo '<option value="2">dames</option>';
+                        echo '<option value="2">uni</option>';
+                        echo '</select></td>';
+
+                echo '<br/>
+                        <tr>
+                        <td colspan="2" align="right"><input type="submit" value="toevoegen" name="toevoegen"></td>
+                    </tr>';
+            echo "</form>";
+
+            if(isset($_POST['toevoegen'])){
+                $stmt = $pdo->query("SELECT * FROM fiets where IDmerk = ". $_POST['merk']. " AND heren_dames_uni =". $_POST['soort']);
+
+            $tabelData = '<table border="1" width="500px"><tr>
             <td>ID</td>
             <td>merk_ID</td>
             <td>heren_dames_uni</td>
@@ -35,9 +46,7 @@ function filterFunction() {
             <td>fiets_serienummer</td>
             <td colspan="2">opties</td>
         </tr>';
-            include("connect.php");
-            $stmt = $pdo->query("SELECT * FROM fiets");
-
+            
             foreach ($stmt as $rij){
                 $tabelData .= '<tr>';
                     $tabelData .= '<td>';
@@ -59,22 +68,10 @@ function filterFunction() {
                         $tabelData .= $rij['fiets_serienummer'];
                     $tabelData .= '</td>';
                 $tabelData .= '</tr>';
-                $tabelData .= '<div class="dropdown">
-                <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-                <div id="myDropdown" class="dropdown-content">
-                  <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-                  <a href="#about">About</a>
-                  <a href="#base">Base</a>
-                  <a href="#blog">Blog</a>
-                  <a href="#contact">Contact</a>
-                  <a href="#custom">Custom</a>
-                  <a href="#support">Support</a>
-                  <a href="#tools">Tools</a>
-                </div>
-              </div>';
             }
             $tabelData .= '</table>';
             echo $tabelData;
+        }
         ?>
     </body>
 </html>
