@@ -66,6 +66,15 @@
             </table>
         </form>
         <?php
+if(isset($_GET['aktie'])){
+        if($_GET['aktie'] == "verwijder"){
+            $query = 'DELETE FROM `fiets` WHERE `ID` = ' .$_GET['id'];
+            if($pdo->query($query))
+        {  
+            $message = 'de aktie is gelukt!';
+        }
+        }
+    }
         $tabelData = '<table border="1" width="500px"><tr>
             <td>ID</td>
             <td>ID Merk</td>
@@ -73,6 +82,7 @@
             <td>maat</td>
             <td>prijs</td>
             <td>fiets_serienummer</td>
+            <td colspan="2">Opties</td>
         </tr>';
             $stmt = $pdo->query("SELECT * FROM fiets");
 
@@ -96,7 +106,10 @@
                     $tabelData .= '<td>';
                         $tabelData .= $rij['fiets_serienummer'];
                     $tabelData .= '</td>';
-                $tabelData .= '</tr>';
+                $tabelData .= '<td>';
+                $tabelData .= '<a href="fietsen.php?aktie=verwijder&id='.$rij['ID'].'">D</a>';
+                $tabelData .= '</td>';
+                    $tabelData .= '</tr>';
             }
             $tabelData .= '</table>';
             echo $tabelData;
@@ -104,5 +117,5 @@
 </div>
 </div>
 </div>
-    </body>
+</body>
 </html>
