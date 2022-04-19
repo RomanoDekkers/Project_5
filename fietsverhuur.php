@@ -10,6 +10,9 @@
             <td>ID</td>
             <td>merk_ID</td>
             <td>heren_dames_uni</td>
+            <td>maat</td>
+            <td>prijs</td>
+            <td>fiets_serienummer</td>
             <td colspan="2">opties</td>
         </tr>';
             include("connect.php");
@@ -21,7 +24,7 @@
                         $tabelData .= $rij['ID'];
                     $tabelData .= '</td>';
                     $tabelData .= '<td>';
-                        $tabelData .= $rij['merk_ID'];
+                        $tabelData .= $rij['IDmerk'];
                     $tabelData .= '</td>';
                     $tabelData .= '<td>';
                         $tabelData .= $rij['heren_dames_uni'];
