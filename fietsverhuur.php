@@ -67,10 +67,83 @@
                     $tabelData .= '<td>';
                         $tabelData .= $rij['fiets_serienummer'];
                     $tabelData .= '</td>';
+                        if($rij['status'] == 0){
+                            $tabelData .= "<td><a href='fietsverhuur.php?aktie=verhuren&id=".$rij['ID']."'>verhuren</a></td>";
+                        }
+                        if($rij['status'] == 1){
+                            $tabelData .="<td><a href='fietsverhuur.php?aktie=teruggebracht&id=".$rij['ID']."'>teruggebracht</a></td>";
+                        }
                 $tabelData .= '</tr>';
             }
             $tabelData .= '</table>';
             echo $tabelData;
+        }
+        if(ISSET($_GET['aktie']))
+        {
+            if($_GET['aktie'] == "verhuren") {
+                $ID = $_GET['id'];
+                echo "<form action='fietsverhuur.php?aktie=verhuren&id=". $ID ."' method='post'>";
+                    echo '<table border="1" width="500px">
+                        <tr>
+                            <td>E-mail:</td>
+                            <td><input type="text" placeholder="E_mail" name="E_mail" required></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="right"><input type="submit" value="versturen naar database" name="klant"></td>
+                        </tr>
+                    </table>
+                </form>';
+                if(isset($_POST['klant'])){
+                    $mail = "'";
+                    $mail .= $_POST['E_mail'];
+                    $mail .= "'";
+                    $stmt = $pdo->query("SELECT * FROM klanten where E_mail = " .$mail);
+                    foreach ($stmt as $rij){
+                        $klantID = $rij['ID'];
+                    }
+                    $sql = "INSERT INTO fietsen_verhuur (datum_uitgeleend, datum_teruggebracht, klant_ID, fiets_ID)
+                    VALUES (?, ?, ?, ?);";
+                    $pdo->prepare($sql)->execute([date("Y/m/d"), null, $klantID, $ID]);
+                    $stmt = $pdo->query("SELECT * FROM fietsen_verhuur where klant_ID = " .$klantID);
+                    foreach ($stmt as $rij){
+                        $fietsID = $rij['fiets_ID'];
+                    }
+                    $stmt = $pdo->query("UPDATE `fiets` SET `status` = '1' WHERE `fiets`.`ID` = $fietsID");
+                    }
+            }
+            if($_GET['aktie'] == "teruggebracht") {
+                $ID = $_GET['id'];
+                echo "<form action='fietsverhuur.php?aktie=teruggebracht&id=". $ID ."' method='post'>";
+                    echo '<table border="1" width="500px">
+                        <tr>
+                            <td>E-mail:</td>
+                            <td><input type="text" placeholder="E_mail" name="E_mail" required></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="right"><input type="submit" value="versturen naar database" name="terug"></td>
+                        </tr>
+                    </table>
+                </form>';
+                if(isset($_POST['terug'])){
+                    $mail = "'";
+                    $mail .= $_POST['E_mail'];
+                    $mail .= "'";
+                    $stmt = $pdo->query("SELECT * FROM klanten where E_mail = " .$mail);
+                    foreach ($stmt as $rij){
+                        $klantID = $rij['ID'];
+                    }
+                    $date = "'";
+                    $date = date("Y/m/d");
+                    $date .= "'";
+                    $stmt = $pdo->query("UPDATE `fietsen_verhuur` SET `datum_teruggebracht`=". $date . " WHERE `fietsen_verhuur`.`ID` =". $klantID);
+                    $stmt = $pdo->query("UPDATE `fiets` SET `status` = '1' WHERE `fiets`.`ID` = $klantID");
+                    $stmt = $pdo->query("SELECT * FROM fietsen_verhuur where ID = " .$klantID);
+                    foreach ($stmt as $rij){
+                        $fietsID = $rij['fiets_ID'];
+                    }
+                    $stmt = $pdo->query("UPDATE `fiets` SET `status` = '0' WHERE `fiets`.`ID` = $fietsID");
+                    }
+            }
         }
         ?>
     </body>
