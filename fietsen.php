@@ -15,9 +15,10 @@
               $maat = $_POST['maat'];
               $prijs = $_POST['prijs'];
               $fiets_serienummer = $_POST['fiets_serienummer'];
-              $sql = "INSERT INTO fiets (IDmerk, heren_dames_uni, maat, prijs, fiets_serienummer)
-              VALUES (?, ?, ?, ?, ?);";
-              $pdo->prepare($sql)->execute([$IDmerk, $heren_dames_uni, $maat, $prijs, $fiets_serienummer]);
+              $status = $_POST['status']; 
+              $sql = "INSERT INTO fiets (IDmerk, heren_dames_uni, maat, prijs, fiets_serienummer, status)
+              VALUES (?, ?, ?, ?, ?, ?);";
+              $pdo->prepare($sql)->execute([$IDmerk, $heren_dames_uni, $maat, $prijs, $fiets_serienummer, $status]);
           }
           ?>
 
@@ -61,6 +62,14 @@
                     <td><input type="text" placeholder="fiets_serienummer" name="fiets_serienummer"></td>
                 </tr>
                 <tr>
+                <td><label>beschikbaarheid:</label></td>
+                        <td><select name="status" id="status">
+                            <option value="0">berschikbaar</option>
+                            <option value="1">uitgeleend</option>
+                            <option value="2">in onderhoud</option>
+                        </select></td>
+                </tr>
+                <tr>
                     <td colspan="2" align="right"><input type="submit" value="toevoegen" name="toevoegen"></td>
                 </tr>
             </table>
@@ -72,9 +81,10 @@ if(isset($_POST)){
 	$naam = $_POST['naam'];
 	$prijs = $_POST['prijs'];
 	$id = $_POST['id'];
+    $status = $_POST['status'];
 	
-	$sql = "UPDATE `fiets` SET `maat` = ?, `prijs` = ? WHERE `fiets`.`ID` = ?;";
-	$pdo->prepare($sql)->execute([$naam, $prijs, $id]);
+	$sql = "UPDATE `fiets` SET `maat` = ?, `prijs` = ?, `status` = ? WHERE `fiets`.`ID` = ?;";
+	$pdo->prepare($sql)->execute([$naam, $prijs, $status, $id]);
 	}
 }
 
@@ -91,7 +101,7 @@ if(isset($_GET['aktie'])){
 
     if($_GET['aktie'] == "wijzigen"){
         $id = $_GET['id'];
-            $stmt = $pdo->prepare("select maat as maat, prijs as prijs from fiets where ID = ?");
+            $stmt = $pdo->prepare("select maat as maat, prijs as prijs, status as status from fiets where ID = ?");
             $stmt->execute([$id]);
             $data = $stmt->fetch();
 
@@ -103,10 +113,16 @@ if(isset($_GET['aktie'])){
                     Categorie
                 </td>
                 <td>
-                    maat
+                    Maat
                 </td>
-                <td colspan=2>
+                <td>
                     Prijs
+                </td>
+                <td>
+                    Status
+                </td>
+                <td>
+                    Update
                 </td>
 
             </tr>
@@ -119,6 +135,11 @@ if(isset($_GET['aktie'])){
                     <input type='text' name='prijs' value='".$data['prijs']."'>
                 </td>
                 <td>
+                    <select name='status' value='".$data['status']."'>
+                        <option value='0'>berschikbaar</option>
+                        <option value='1'>uitgeleend</option>
+                        <option value='2'>in onderhoud</option>
+                </select></td><td>
                     <input type='hidden' name='id' value='".$id."'>
                     <input type='submit' name='update' value='Wijzig product'>
                 </td>
@@ -130,13 +151,14 @@ if(isset($_GET['aktie'])){
         }
     }
 
-        $tabelData = '<table border="1" width="500px"><tr>
+        $tabelData = '<table border="1" width="700px"><tr>
             <td>ID</td>
             <td>ID Merk</td>
             <td>heren_dames_uni</td>
             <td>maat</td>
             <td>prijs</td>
             <td>fiets_serienummer</td>
+            <td>Beschikbaarheid</td>
             <td colspan="2">Opties</td>
         </tr>';
             $stmt = $pdo->query("SELECT * FROM fiets");
@@ -161,12 +183,15 @@ if(isset($_GET['aktie'])){
                     $tabelData .= '<td>';
                         $tabelData .= $rij['fiets_serienummer'];
                     $tabelData .= '</td>';
-                $tabelData .= '<td>';
-                $tabelData .= '<a href="fietsen.php?aktie=wijzigen&id='.$rij['ID'].'">U</a>';
-                $tabelData .= '</td>';
-                $tabelData .= '<td>';
-                $tabelData .= '<a href="fietsen.php?aktie=verwijder&id='.$rij['ID'].'">D</a>';
-                $tabelData .= '</td>';
+                    $tabelData .= '<td>';
+                        $tabelData .= $rij['status'];
+                    $tabelData .= '</td>';
+                    $tabelData .= '<td>';
+                        $tabelData .= '<a href="fietsen.php?aktie=wijzigen&id='.$rij['ID'].'">Update</a>';
+                    $tabelData .= '</td>';
+                    $tabelData .= '<td>';
+                        $tabelData .= '<a href="fietsen.php?aktie=verwijder&id='.$rij['ID'].'">Delete</a>';
+                    $tabelData .= '</td>';
                     $tabelData .= '</tr>';
             }
             $tabelData .= '</table>';
