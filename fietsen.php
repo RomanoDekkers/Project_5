@@ -92,12 +92,9 @@ if(isset($_POST)){
 if(isset($_GET['aktie'])){
         if($_GET['aktie'] == "verwijder"){
             $query = 'DELETE FROM `fiets` WHERE `ID` = ' .$_GET['id'];
-            if($pdo->query($query))
-        {  
-            $message = 'de aktie is gelukt!';
+            $pdo->query($query);        
         }
-        }
-    
+
 
     if($_GET['aktie'] == "wijzigen"){
         $id = $_GET['id'];
