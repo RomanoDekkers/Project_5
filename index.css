@@ -15,17 +15,43 @@ body {
     width: 50%;
 }
 
-.btnBeheer{
-  position: relative;
-  background-color: rgb(255, 50, 55);
-  border: none;
-  font-size: 28px;
-  color: #000000;
-  padding: 20px;
-  width: 200px;
+.menu{
+  height: 70px;
+  background-color: #00415a;
+}
+
+.menu ul{
+  width: auto;
+  float: left;
+
+}
+
+.menu li{
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-left: 40px;
+  justify-content: center;
+  align-item: center;
+  float: left;
+
+}
+
+.menu li img{
+  height :40px;
+  display: flex;
+}
+
+.nav{
   text-align: center;
-  transition-duration: 0.4s;
+  color: #FF1200;
   text-decoration: none;
-  overflow: hidden;
-  cursor: pointer;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.2vw;
+  margin-bottom: 6px;
+
+}
+a:hover{
+  color: #FF2300;
+  transition: 0.5s;
 }
