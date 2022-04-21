@@ -133,9 +133,9 @@
                         $klantID = $rij['ID'];
                     }
                     $date = "'";
-                    $date = date("Y/m/d");
+                    $date .= date("Y-m-d");
                     $date .= "'";
-                    $stmt = $pdo->query("UPDATE `fietsen_verhuur` SET `datum_teruggebracht`=". $date . " WHERE `fietsen_verhuur`.`ID` =". $klantID);
+                    $stmt = $pdo->query("UPDATE `fietsen_verhuur` SET `datum_teruggebracht`= ". $date . " WHERE `fietsen_verhuur`.`ID` = ". $klantID);
                     $stmt = $pdo->query("UPDATE `fiets` SET `status` = '1' WHERE `fiets`.`ID` = $klantID");
                     $stmt = $pdo->query("SELECT * FROM fietsen_verhuur where ID = " .$klantID);
                     foreach ($stmt as $rij){
