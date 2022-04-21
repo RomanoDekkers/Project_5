@@ -17,13 +17,11 @@ body {
 
 .menu{
   height: 70px;
-  background-color: #00415a;
 }
 
 .menu ul{
   width: auto;
   float: left;
-
 }
 
 .menu li{
@@ -37,21 +35,11 @@ body {
 
 }
 
-.menu li img{
-  height :40px;
-  display: flex;
-}
-
 .nav{
   text-align: center;
-  color: #FF1200;
+  color: #000000;
   text-decoration: none;
   font-family: 'Open Sans', sans-serif;
   font-size: 1.2vw;
   margin-bottom: 6px;
-
-}
-a:hover{
-  color: #FF2300;
-  transition: 0.5s;
 }

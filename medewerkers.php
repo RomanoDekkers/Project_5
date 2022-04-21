@@ -4,6 +4,7 @@
         <link rel="stylesheet" href="index.css">
     </head>
     <body>
+    <div class="table_div">
 <?php 
     include("beheer.php");
 ?>
