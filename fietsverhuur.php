@@ -109,6 +109,7 @@
                         $fietsID = $rij['fiets_ID'];
                     }
                     $stmt = $pdo->query("UPDATE `fiets` SET `status` = '1' WHERE `fiets`.`ID` = $fietsID");
+                    header("Location:fietsverhuur.php");
                     }
             }
             if($_GET['aktie'] == "teruggebracht") {
@@ -135,13 +136,13 @@
                     $date = "'";
                     $date .= date("Y-m-d");
                     $date .= "'";
-                    $stmt = $pdo->query("UPDATE `fietsen_verhuur` SET `datum_teruggebracht`= ". $date . " WHERE `fietsen_verhuur`.`ID` = ". $klantID);
-                    $stmt = $pdo->query("UPDATE `fiets` SET `status` = '1' WHERE `fiets`.`ID` = $klantID");
-                    $stmt = $pdo->query("SELECT * FROM fietsen_verhuur where ID = " .$klantID);
+                    $stmt = $pdo->query("UPDATE `fietsen_verhuur` SET `datum_teruggebracht`= ". $date . " WHERE `fietsen_verhuur`.`klant_ID` = ". $klantID);
+                    $stmt = $pdo->query("SELECT * FROM fietsen_verhuur where klant_ID = " .$klantID);
                     foreach ($stmt as $rij){
                         $fietsID = $rij['fiets_ID'];
                     }
-                    $stmt = $pdo->query("UPDATE `fiets` SET `status` = '0' WHERE `fiets`.`ID` = $fietsID");
+                    $stmt = $pdo->query("UPDATE `fiets` SET `status` = '0' WHERE `ID` =". $fietsID);
+                    header("Location:fietsverhuur.php");
                     }
             }
         }
