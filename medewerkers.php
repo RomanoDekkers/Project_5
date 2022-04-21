@@ -4,6 +4,9 @@
         <link rel="stylesheet" href="index.css">
     </head>
     <body>
+<?php 
+    include("beheer.php");
+?>
 <div class="Container">
         <h1 id="homepage_title">Fietsverhuur de Elstar</h1>
         <div class="table_div"> 
@@ -37,7 +40,6 @@
 </div>
         <?php
             include("connect.php");
-            include("beheer.php");
 
             if(isset($_POST['toevoegen'])){
                 $naam = $_POST['naam'];

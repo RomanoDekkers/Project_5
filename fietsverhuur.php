@@ -4,7 +4,6 @@
         <link rel="stylesheet" href="index.css">
     </head>
     <body>
-        <h1>Start</h1> 
         <?php
         include("beheer.php");
             include("connect.php");
