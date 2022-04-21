@@ -37,6 +37,7 @@
 </div>
         <?php
             include("connect.php");
+            include("beheer.php");
 
             if(isset($_POST['toevoegen'])){
                 $naam = $_POST['naam'];

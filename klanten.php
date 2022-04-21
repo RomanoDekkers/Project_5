@@ -7,6 +7,7 @@
     <div class="Container"> 
     <div class="table_div">
 <?php
+include("beheer.php");
 include("connect.php");
 if(isset($_POST)){
 	if(isset($_POST['update'])){

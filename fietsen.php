@@ -5,6 +5,7 @@
     </head>
     <body>
           <?php
+          include("beheer.php");
           include("connect.php");
 
           $stmt = $pdo->query("SELECT * FROM fiets_merk");
