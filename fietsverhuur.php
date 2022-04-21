@@ -6,6 +6,7 @@
     <body>
         <h1>Start</h1> 
         <?php
+        include("beheer.php");
             include("connect.php");
             $stmt = $pdo->query("SELECT * FROM fiets_merk");
             echo ' <form action="fietsverhuur.php" method="post">';
