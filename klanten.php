@@ -14,12 +14,12 @@ if(isset($_POST)){
 	$adres = $_POST['adres'];
     $woonplaats = $_POST['woonplaats'];
     $postcode = $_POST['postcode'];
-    $Email = $_POST['e_mail'];
+    $email = $_POST['email'];
     $telefoonNummer = $_POST['telefoon_nummer'];
 	$id = $_POST['id'];
 	
 	$sql = "UPDATE `klanten` SET `naam` = ?, `adres` = ?, `woonplaats` = ?, `postcode` = ?, `E_mail` = ?, `telefoon_nummer`= ? WHERE `klanten`.`ID` = ?;";
-	$pdo->prepare($sql)->execute([$naam, $adres, $woonplaats, $postcode, $Email, $telefoonNummer, $id]);
+	$pdo->prepare($sql)->execute([$naam, $adres, $woonplaats, $postcode, $email, $telefoonNummer, $id]);
 	}
 }
     if(isset($_GET['aktie'])){
@@ -31,7 +31,7 @@ if(isset($_POST)){
 
     if($_GET['aktie'] == "wijzigen"){
         $id = $_GET['id'];
-            $stmt = $pdo->prepare("select naam as naam, adres as adres, woonplaats as woonplaats, postcode as postcode, e_mail as e_mail, telefoon_nummer as telefooon_nummer from klanten where ID = ?");
+            $stmt = $pdo->prepare("select naam as naam, adres as adres, woonplaats as woonplaats, postcode as postcode, e_mail as e_mail, telefoon_nummer as telefoon_nummer from klanten where ID = ?");
             $stmt->execute([$id]);
             $data = $stmt->fetch();
 
@@ -79,7 +79,7 @@ if(isset($_POST)){
                     <input type='text' name='postcode' value='".$data['postcode']."'>
                 </td>
                 <td>
-                    <input type='text' name='email' value='".$data['E_mail']."'>
+                    <input type='text' name='email' value='".$data['e_mail']."'>
                 </td>
                 <td>
                     <input type='text' name='telefoon_nummer' value='".$data['telefoon_nummer']."'>
