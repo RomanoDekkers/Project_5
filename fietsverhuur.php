@@ -6,6 +6,7 @@
     <body>
     <div class="table_div">
         <?php
+        session_start();
         include("beheer.php");
             include("connect.php");
             $stmt = $pdo->query("SELECT * FROM fiets_merk");
@@ -130,22 +131,62 @@
                     $mail = "'";
                     $mail .= $_POST['E_mail'];
                     $mail .= "'";
+                    $_SESSION['E_mail'] = $mail;
                     $stmt = $pdo->query("SELECT * FROM klanten where E_mail = " .$mail);
                     foreach ($stmt as $rij){
                         $klantID = $rij['ID'];
                     }
-                    $date = "'";
-                    $date .= date("Y-m-d");
-                    $date .= "'";
-                    $stmt = $pdo->query("UPDATE `fietsen_verhuur` SET `datum_teruggebracht`= ". $date . " WHERE `fietsen_verhuur`.`klant_ID` = ". $klantID);
                     $stmt = $pdo->query("SELECT * FROM fietsen_verhuur where klant_ID = " .$klantID);
+                    $tabelData = '<table border="1" width="500px"><tr>
+                        <td>ID</td>
+                        <td>datum_uitgeleend</td>
+                        <td>datum_teruggebracht</td>
+                        <td>klant_ID</td>
+                        <td>fiets_ID</td>
+                        <td colspan="2">opties</td>
+                    </tr>';
                     foreach ($stmt as $rij){
-                        $fietsID = $rij['fiets_ID'];
+                        $tabelData .= '<tr>';
+                            $tabelData .= '<td>';
+                                $tabelData .= $rij['ID'];
+                            $tabelData .= '</td>';
+                            $tabelData .= '<td>';
+                                $tabelData .= $rij['datum_uitgeleend'];
+                            $tabelData .= '</td>';
+                            $tabelData .= '<td>';
+                                $tabelData .= $rij['datum_teruggebracht'];
+                            $tabelData .= '</td>';
+                            $tabelData .= '<td>';
+                                $tabelData .= $rij['klant_ID'];
+                            $tabelData .= '</td>';
+                            $tabelData .= '<td>';
+                                $tabelData .= $rij['fiets_ID'];
+                            $tabelData .= '</td>';
+                                $tabelData .= "<td><a href='fietsverhuur.php?aktie=terug_versturen&id=".$rij['ID']."'>versturen naar database</a></td>";
+                        $tabelData .= '</tr>';
                     }
-                    $stmt = $pdo->query("UPDATE `fiets` SET `status` = '0' WHERE `ID` =". $fietsID);
-                    header("Location:fietsverhuur.php");
-                    }
+                    $tabelData .= '</table>';
+                    echo $tabelData;
+                }
             }
+            if($_GET['aktie'] == 'terug_versturen') {
+                $mail = $_SESSION['E_mail'];
+                $stmt = $pdo->query("SELECT * FROM klanten where E_mail = " .$mail);
+                foreach ($stmt as $rij){
+                    $klantID = $rij['ID'];
+                }
+                $stmt = $pdo->query("SELECT * FROM fietsen_verhuur where klant_ID = " .$klantID);
+                $date = "'";
+                $date .= date("Y-m-d");
+                $date .= "'";
+                $stmt = $pdo->query("UPDATE `fietsen_verhuur` SET `datum_teruggebracht`= ". $date . " WHERE `fietsen_verhuur`.`klant_ID` = ". $klantID);
+                $stmt = $pdo->query("SELECT * FROM fietsen_verhuur where klant_ID = " .$klantID);
+                foreach ($stmt as $rij){
+                    $fietsID = $rij['fiets_ID'];
+                }
+                $stmt = $pdo->query("UPDATE `fiets` SET `status` = '0' WHERE `ID` =". $fietsID);
+                //header("Location:fietsverhuur.php");
+                }
         }
         ?>
     </body>
