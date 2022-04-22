@@ -40,14 +40,14 @@
                 $stmt = $pdo->query("SELECT * FROM fiets where IDmerk = ". $_POST['merk']. " AND heren_dames_uni =". $_POST['soort']);
 
             $tabelData = '<table border="1" width="500px"><tr>
-            <td>ID</td>
-            <td>merk_ID</td>
-            <td>heren_dames_uni</td>
-            <td>maat</td>
-            <td>prijs</td>
-            <td>fiets_serienummer</td>
-            <td colspan="2">opties</td>
-        </tr>';
+                <td>ID</td>
+                <td>merk_ID</td>
+                <td>heren_dames_uni</td>
+                <td>maat</td>
+                <td>prijs</td>
+                <td>fiets_serienummer</td>
+                <td colspan="2">opties</td>
+            </tr>';
             
             foreach ($stmt as $rij){
                 $tabelData .= '<tr>';
@@ -55,7 +55,10 @@
                         $tabelData .= $rij['ID'];
                     $tabelData .= '</td>';
                     $tabelData .= '<td>';
-                        $tabelData .= $rij['IDmerk'];
+                        $stmt1 = $pdo->query("SELECT * FROM fiets_merk where ID = " . $rij['IDmerk']);
+                        foreach ($stmt1 as $rij1){
+                            $tabelData .=$rij1['merk_naam'];
+                        }
                     $tabelData .= '</td>';
                     $tabelData .= '<td>';
                         $tabelData .= $rij['heren_dames_uni'];
@@ -80,6 +83,11 @@
             $tabelData .= '</table>';
             echo $tabelData;
         }
+
+
+
+
+
         if(ISSET($_GET['aktie']))
         {
             if($_GET['aktie'] == "verhuren") {
@@ -96,6 +104,7 @@
                     </table>
                 </form>';
                 if(isset($_POST['klant'])){
+                    $ID =  $_GET['id'];
                     $mail = "'";
                     $mail .= $_POST['E_mail'];
                     $mail .= "'";
@@ -109,6 +118,7 @@
                     $stmt = $pdo->query("SELECT * FROM fietsen_verhuur where klant_ID = " .$klantID);
                     foreach ($stmt as $rij){
                         $fietsID = $rij['fiets_ID'];
+                        $stmt = $pdo->query("UPDATE `fiets` SET `status` = '1' WHERE `fiets`.`ID` = $fietsID");
                     }
                     $stmt = $pdo->query("UPDATE `fiets` SET `status` = '1' WHERE `fiets`.`ID` = $fietsID");
                     header("Location:fietsverhuur.php");
@@ -179,13 +189,13 @@
                 $date = "'";
                 $date .= date("Y-m-d");
                 $date .= "'";
-                $stmt = $pdo->query("UPDATE `fietsen_verhuur` SET `datum_teruggebracht`= ". $date . " WHERE `fietsen_verhuur`.`klant_ID` = ". $klantID);
                 $stmt = $pdo->query("SELECT * FROM fietsen_verhuur where klant_ID = " .$klantID);
                 foreach ($stmt as $rij){
                     $fietsID = $rij['fiets_ID'];
                 }
+                $stmt = $pdo->query("DELETE FROM `fietsen_verhuur`WHERE `fietsen_verhuur`.`klant_ID` = ". $klantID . " AND `fiets_ID` =". $fietsID);
                 $stmt = $pdo->query("UPDATE `fiets` SET `status` = '0' WHERE `ID` =". $fietsID);
-                //header("Location:fietsverhuur.php");
+                header("Location:fietsverhuur.php");
                 }
         }
         ?>
