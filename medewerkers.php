@@ -9,7 +9,7 @@
     include("beheer.php");
 ?>
 <div class="Container">
-        <h1 id="homepage_title">Fietsverhuur de Elstar</h1>
+        <h1>Fietsverhuur de Elstar</h1>
         <div class="table_div"> 
         <form action="medewerkers.php" method="post">
             <table border="1" width="500px">
